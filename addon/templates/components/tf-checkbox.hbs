@@ -1,0 +1,24 @@
+{{#if hasBlock}}
+  <label class="tf-checkbox__label {{if checked 'tf-checkbox__label--checked'}} {{labelClass}}" for={{id}}>
+    {{checkbox-input
+        class=class
+        id=id
+        disabled=disabled
+        name=name
+        value=value
+        checked=checked
+        click=(action "onClick")
+        shapeStyle=shapeStyle}}
+    {{yield}}
+  </label>
+{{else}}
+  {{checkbox-input
+      class=class
+      id=id
+      disabled=disabled
+      name=name
+      value=value
+      checked=checked
+      click=(action "onClick")
+      shapeStyle=shapeStyle}}
+{{/if}}
