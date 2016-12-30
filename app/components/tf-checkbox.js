@@ -1,0 +1,1 @@
+export { default } from 'ember-ticketfly-checkbox/components/tf-checkbox';
