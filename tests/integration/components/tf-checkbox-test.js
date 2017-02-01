@@ -8,7 +8,7 @@ moduleForComponent('tf-checkbox', 'Integration | Component | tf checkbox', {
 test('renders basic attributes inline', function(assert) {
   this.render(hbs`{{tf-checkbox name='color' value='pink' class='awesome-class wow-class' disabled=disabled id='123'}}`);
 
-  assert.ok(this.$('input[type="checkbox"]').hasClass('tf-checkbox'), 'input checkbox rendered');
+  assert.ok(this.$('input[type="checkbox"]').hasClass('c-tf-checkbox'), 'input checkbox rendered');
   assert.equal(this.$('input').attr('name'), 'color', 'input name is "color"');
   assert.equal(this.$('input').val(), 'pink', 'input value is "pink"');
   assert.ok(this.$('input').hasClass('awesome-class wow-class'), 'classes are passed to checkbox');
@@ -26,7 +26,7 @@ test('renders basic attributes in block form', function(assert) {
     {{/tf-checkbox}}
   `);
 
-  assert.ok(this.$('input[type="checkbox"]').hasClass('tf-checkbox'), 'input checkbox rendered');
+  assert.ok(this.$('input[type="checkbox"]').hasClass('c-tf-checkbox'), 'input checkbox rendered');
   assert.equal(this.$('input').attr('name'), 'pokemon', 'input name is "pokemon"');
   assert.equal(this.$('input').val(), 'bulbasaur', 'input value is "bulbasaur"');
   assert.ok(this.$('input').hasClass('johto-class kanto-class'), 'classes are passed to checkbox');
@@ -36,7 +36,7 @@ test('renders basic attributes in block form', function(assert) {
   this.set('disabled', true);
   assert.ok(this.$('input').is(':disabled'), 'checkbox is disabled');
 
-  assert.ok(this.$('label').hasClass('tf-checkbox__label'), 'label is rendered');
+  assert.ok(this.$('label').hasClass('c-tf-checkbox__label'), 'label is rendered');
   assert.equal(this.$('label').attr('for'), '234', 'label "for" matches input "id"');
   assert.ok(this.$('label').hasClass('lorelei-class agatha-class'), 'label classes are passed to checkbox');
 
@@ -77,7 +77,7 @@ test('binds shapeStyle attribute to input shape', function(assert) {
     {{/tf-checkbox}}
   `);
 
-  assert.ok(this.$('#round-checkbox').hasClass('tf-checkbox--shape-round'), "checkbox has round shape style");
+  assert.ok(this.$('#round-checkbox').hasClass('c-tf-checkbox--shape-round'), "checkbox has round shape style");
 });
 
 test('binds checked attribute to input and label', function(assert) {
@@ -88,9 +88,9 @@ test('binds checked attribute to input and label', function(assert) {
   `);
 
   assert.ok(!this.$('input').is(':checked'), 'input is not checked');
-  assert.ok(!this.$('label').hasClass('tf-checkbox__label--checked'), 'label does not have checked class');
+  assert.ok(!this.$('label').hasClass('c-tf-checkbox__label--checked'), 'label does not have checked class');
 
   this.set('checked', true);
   assert.ok(this.$('input').is(':checked'), 'input is checked');
-  assert.ok(this.$('label').hasClass('tf-checkbox__label--checked'), 'label has checked class');
+  assert.ok(this.$('label').hasClass('c-tf-checkbox__label--checked'), 'label has checked class');
 });

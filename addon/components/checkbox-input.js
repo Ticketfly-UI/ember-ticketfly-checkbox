@@ -11,7 +11,7 @@ const { computed } = Ember;
   @extends Ember.Checkbox
  */
 export default Ember.Checkbox.extend({
-  classNames: ['tf-checkbox'],
+  classNames: ['c-tf-checkbox'],
 
   classNameBindings: ['shape'],
 
@@ -19,7 +19,7 @@ export default Ember.Checkbox.extend({
     get() {
       const shapeStyle = get(this, 'shapeStyle');
       if (shapeStyle === 'round') {
-        return 'tf-checkbox--shape-round';
+        return 'c-tf-checkbox--shape-round';
       }
     }
   }),

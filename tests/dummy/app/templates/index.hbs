@@ -1,0 +1,64 @@
+<h1>tf-checkbox</h1>
+
+<p class="u-m-0">Min-width: 17px | Min-height: 17px | Border radius: 2px.</p>
+<p class="u-m-0 u-mb-md">Default shapeStyle is "square".</p>
+
+<h2>No parameters</h2>
+
+{{! BEGIN-SNIPPET no-params }}
+  {{tf-checkbox}}
+{{! END-SNIPPET }}
+
+{{code-snippet name="no-params.hbs" class="u-mv-md u-p-md"}}
+
+<h2>Shape style</h2>
+
+{{! BEGIN-SNIPPET shape-style}}
+  {{tf-checkbox}}
+  {{tf-checkbox checked=true}}
+  {{tf-checkbox shapeStyle="round"}}
+  {{tf-checkbox shapeStyle="round" checked=true}}
+{{! END-SNIPPET }}
+
+{{code-snippet name="shape-style.hbs" class="u-mv-md u-p-md"}}
+
+<h2>Block form</h2>
+
+{{! BEGIN-SNIPPET block-form}}
+  {{#tf-checkbox}}
+    Square Checkbox
+  {{/tf-checkbox}}
+
+  {{#tf-checkbox checked=true}}
+    Square Checked
+  {{/tf-checkbox}}
+
+  {{#tf-checkbox shapeStyle="round"}}
+    Round Checkbox
+  {{/tf-checkbox}}
+
+  {{#tf-checkbox shapeStyle="round" checked=true}}
+    Round Checked
+  {{/tf-checkbox}}
+{{! END-SNIPPET }}
+
+{{code-snippet name="block-form.hbs" class="u-mv-md u-p-md"}}
+
+<p class="u-mh-0 u-mb-md u-mt-lg">Use labelClass to assign classes to the label.</p>
+
+{{! BEGIN-SNIPPET label-class }}
+  {{#tf-checkbox labelClass="some-class another-class"}}
+    Inspect My Label Classes
+  {{/tf-checkbox}}
+{{! END-SNIPPET }}
+
+{{code-snippet name="label-class.hbs" class="u-mv-md u-p-md"}}
+
+<h2>Disabled</h2>
+
+{{! BEGIN-SNIPPET disabled}}
+  {{tf-checkbox disabled=true}}
+  {{tf-checkbox shapeStyle="round" disabled=true}}
+{{! END-SNIPPET }}
+
+{{code-snippet name="disabled.hbs" class="u-mv-md u-p-md"}}
