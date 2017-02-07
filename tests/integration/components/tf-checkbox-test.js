@@ -1,96 +1,114 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import { initialize, $hook } from 'ember-hook';
 
 moduleForComponent('tf-checkbox', 'Integration | Component | tf checkbox', {
+  beforeEach() {
+    initialize();
+  },
   integration: true
 });
 
-test('renders basic attributes inline', function(assert) {
-  this.render(hbs`{{tf-checkbox name='color' value='pink' class='awesome-class wow-class' disabled=disabled id='123'}}`);
+test('renders checkbox inline', function(assert) {
+  this.render(hbs`{{tf-checkbox}}`);
 
-  assert.ok(this.$('input[type="checkbox"]').hasClass('c-tf-checkbox'), 'input checkbox rendered');
+  assert.ok($hook('tf-checkbox').length, 'component is rendered');
+  assert.ok($hook('tf-checkbox__input-checkbox').length, 'checkbox input rendered');
+});
+
+test('receives basic checkbox attributes', function(assert) {
+  this.render(hbs`{{tf-checkbox name='color' value='pink' class='awesome-class wow-class'}}`);
+
+  assert.ok($hook('tf-checkbox').hasClass('awesome-class wow-class'), 'classes are passed to the component');
   assert.equal(this.$('input').attr('name'), 'color', 'input name is "color"');
   assert.equal(this.$('input').val(), 'pink', 'input value is "pink"');
-  assert.ok(this.$('input').hasClass('awesome-class wow-class'), 'classes are passed to checkbox');
-  assert.equal(this.$('input').attr('id'), '123', 'id is passed to checkbox');
-  assert.ok(!this.$('input').is(':disabled'), 'checkbox is not disabled');
+});
 
+test('receives disabled attribute', function(assert) {
+  this.render(hbs`{{tf-checkbox disabled=disabled}}`);
+
+  assert.ok(!this.$('input').is(':disabled'), 'checkbox is not disabled');
   this.set('disabled', true);
   assert.ok(this.$('input').is(':disabled'), 'checkbox is disabled');
 });
 
-test('renders basic attributes in block form', function(assert) {
+test('receives checkboxId', function(assert) {
+  this.render(hbs`{{tf-checkbox checkboxId='123'}}`);
+
+  assert.equal(this.$('input').attr('id'), '123', 'id is passed to checkbox');
+  assert.equal(this.$('label').attr('for'), '123', 'label "for" matches input "id"');
+});
+
+test('checkboxId is not passed in', function(assert) {
+  this.render(hbs`{{tf-checkbox}}`);
+
+  const inputId = this.$('input').attr('id');
+  const labelFor= this.$('label').attr('for');
+
+
+  assert.ok(inputId, 'input has generated "id"');
+  assert.ok(labelFor, 'label has "for" attribute set');
+  assert.equal(inputId, labelFor, 'input "id" matches label "for"');  
+});
+
+test('renders in block form', function(assert) {
   this.render(hbs`
-    {{#tf-checkbox name='pokemon' value='bulbasaur' class='johto-class kanto-class' disabled=disabled id='234' labelClass='lorelei-class agatha-class'}}
+    {{#tf-checkbox}}
       Check Me!
     {{/tf-checkbox}}
   `);
 
-  assert.ok(this.$('input[type="checkbox"]').hasClass('c-tf-checkbox'), 'input checkbox rendered');
-  assert.equal(this.$('input').attr('name'), 'pokemon', 'input name is "pokemon"');
-  assert.equal(this.$('input').val(), 'bulbasaur', 'input value is "bulbasaur"');
-  assert.ok(this.$('input').hasClass('johto-class kanto-class'), 'classes are passed to checkbox');
-  assert.equal(this.$('input').attr('id'), '234', 'id is passed to checkbox');
-  assert.ok(!this.$('input').is(':disabled'), 'checkbox is not disabled');
-
-  this.set('disabled', true);
-  assert.ok(this.$('input').is(':disabled'), 'checkbox is disabled');
-
-  assert.ok(this.$('label').hasClass('c-tf-checkbox__label'), 'label is rendered');
-  assert.equal(this.$('label').attr('for'), '234', 'label "for" matches input "id"');
-  assert.ok(this.$('label').hasClass('lorelei-class agatha-class'), 'label classes are passed to checkbox');
-
-  assert.equal(this.$().text().trim(), "Check Me!", "block is yielded");
+  assert.ok($hook('tf-checkbox').length, 'component is rendered');
+  assert.ok($hook('tf-checkbox__input-checkbox').length, 'checkbox input rendered');
+  assert.equal($hook('tf-checkbox__content').text().trim(), "Check Me!", "content is yielded in component");
 });
 
-test('block form accessibility by default', function(assert) {
+test('receives basic checkbox attributes in block form', function(assert) {
   this.render(hbs`
-    {{#tf-checkbox id=id}}
-      Check You!
+    {{#tf-checkbox name='pokemon' value='bulbasaur' class='grass-class'}}
+      Check Yoself!
     {{/tf-checkbox}}
   `);
 
-  assert.equal(this.$('input').attr('id'), this.$('label').attr('for'), 'label "for" matches input "id" even if no id is passed in');
+  assert.equal($hook('tf-checkbox__input-checkbox').attr('name'), 'pokemon', 'input name is "pokemon"');
+  assert.equal($hook('tf-checkbox__input-checkbox').val(), 'bulbasaur', 'input value is "bulbasaur"');
+  assert.ok($hook('tf-checkbox').hasClass('grass-class'), 'classes are passed to component');
 });
 
-test('sends onClick action on checkbox click', function(assert) {
+test('sends click action on click', function(assert) {
   assert.expect(1);
 
-  this.on('onClick', function() {
-    const args = Array.prototype.slice.call(arguments);
-    assert.deepEqual(args, ['strawberry', 'fruit', '345'], 'onClick action is called with value, name, and id');
+  this.on('clicked', function() {
+    assert.ok(true, "Click action was sent");
   });
 
-  this.render(hbs`{{tf-checkbox value='strawberry' name='fruit' id='345' onClick=(action "onClick")}}`);
+  this.render(hbs`{{tf-checkbox value='strawberry' name='fruit' onClick=(action "clicked")}}`);
 
-  this.$('input').click();
+  $hook('tf-checkbox__label').click();
 });
 
-test('binds shapeStyle attribute to input shape', function(assert) {
-  this.render(hbs`{{tf-checkbox id="square-checkbox"}}`);
+test('checked property changes on click', function(assert) {
+  this.render(hbs`{{tf-checkbox}}`);
 
-  assert.ok(!this.$('#square-checkbox').hasClass('tf-checkbox--shape-round'), "checkbox has no shape style (square by default)");
+  const checkboxInput = $hook('tf-checkbox__input-checkbox');
 
-  this.render(hbs`
-    {{#tf-checkbox id="round-checkbox" shapeStyle="round"}}
-      Checkerz
-    {{/tf-checkbox}}
-  `);
+  assert.ok(!checkboxInput.is(':checked'), "input isn't checked");
 
-  assert.ok(this.$('#round-checkbox').hasClass('c-tf-checkbox--shape-round'), "checkbox has round shape style");
+  $hook('tf-checkbox__label').click();
+  
+  assert.ok(checkboxInput.is(':checked'), "input is checked");
 });
 
-test('binds checked attribute to input and label', function(assert) {
-  this.render(hbs`
-    {{#tf-checkbox checked=checked}}
-      Checkmate
-    {{/tf-checkbox}}
-  `);
+test('checkbox receives a shapeStyle', function(assert) {
+  this.render(hbs`{{tf-checkbox shapeStyle="round"}}`);
 
-  assert.ok(!this.$('input').is(':checked'), 'input is not checked');
-  assert.ok(!this.$('label').hasClass('c-tf-checkbox__label--checked'), 'label does not have checked class');
+  const boxShape = $hook('tf-checkbox__box-shape');
+  assert.ok(boxShape.hasClass('c-tf-checkbox__box-shape--round'), "box shape is round");
+});
 
-  this.set('checked', true);
-  assert.ok(this.$('input').is(':checked'), 'input is checked');
-  assert.ok(this.$('label').hasClass('c-tf-checkbox__label--checked'), 'label has checked class');
+test('checkbox defaults to square shape', function(assert) {
+  this.render(hbs`{{tf-checkbox}}`);
+
+  const boxShape = $hook('tf-checkbox__box-shape');
+  assert.ok(boxShape.hasClass('c-tf-checkbox__box-shape--square'), "box shape is square");
 });

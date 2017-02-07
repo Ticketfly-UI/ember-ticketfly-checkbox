@@ -44,16 +44,6 @@
 
 {{code-snippet name="block-form.hbs" class="u-mv-md u-p-md"}}
 
-<p class="u-mh-0 u-mb-md u-mt-lg">Use labelClass to assign classes to the label.</p>
-
-{{! BEGIN-SNIPPET label-class }}
-  {{#tf-checkbox labelClass="some-class another-class"}}
-    Inspect My Label Classes
-  {{/tf-checkbox}}
-{{! END-SNIPPET }}
-
-{{code-snippet name="label-class.hbs" class="u-mv-md u-p-md"}}
-
 <h2>Disabled</h2>
 
 {{! BEGIN-SNIPPET disabled}}
@@ -62,3 +52,16 @@
 {{! END-SNIPPET }}
 
 {{code-snippet name="disabled.hbs" class="u-mv-md u-p-md"}}
+
+<h2>Passing in an action</h2>
+
+{{! BEGIN-SNIPPET passing-action}}
+  {{#tf-checkbox onClick=(action "alertHello") value="Checky"}}
+    Click Me To Say Hi
+  {{/tf-checkbox}}
+{{! END-SNIPPET }}
+
+{{code-snippet name="passing-action.hbs" class="u-mv-md u-p-md"}}
+
+{{code-snippet name="alert-hello.js" class="u-mv-md u-p-md"}}
+

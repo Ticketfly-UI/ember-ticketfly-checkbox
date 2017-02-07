@@ -1,24 +1,20 @@
-{{#if hasBlock}}
-  <label class="c-tf-checkbox__label {{if checked 'c-tf-checkbox__label--checked'}} {{labelClass}}" for={{id}}>
-    {{checkbox-input
-        class=class
-        id=id
-        disabled=disabled
-        name=name
-        value=value
-        checked=checked
-        click=(action "onClick")
-        shapeStyle=shapeStyle}}
+<input type="checkbox"
+    class="c-tf-checkbox__input-checkbox u-hidden-visually u-m-0"
+    id={{checkboxId}}
+    disabled={{disabled}}
+    name={{name}}
+    checked={{checked}}
+    value={{value}}
+    data-test={{hook "tf-checkbox__input-checkbox"}}>
+<label class="c-tf-checkbox__label" for={{checkboxId}} {{action "clickedCheckbox" value name id}} data-test={{hook "tf-checkbox__label"}}>
+  <div class="u-inline-block u-valign-middle c-tf-checkbox__box-shape {{boxShape}} {{if checked 'c-tf-checkbox__box-shape--checked'}} {{if disabled 'c-tf-checkbox__box-shape--disabled'}}" data-test={{hook "tf-checkbox__box-shape"}}>
+    {{#if shouldShowCheck}}
+      <svg role="img" viewBox="0 0 60 40" class="c-tf-checkbox__check-icon" data-test={{hook "tf-checkbox__check-icon"}}>
+        <use xlink:href="/assets/icons.svg#check"></use>
+      </svg>
+    {{/if}}
+  </div>
+  <span class="u-inline-block u-valign-middle" data-test={{hook "tf-checkbox__content"}}>
     {{yield}}
-  </label>
-{{else}}
-  {{checkbox-input
-      class=class
-      id=id
-      disabled=disabled
-      name=name
-      value=value
-      checked=checked
-      click=(action "onClick")
-      shapeStyle=shapeStyle}}
-{{/if}}
+  </span>
+</label>
