@@ -5,6 +5,17 @@ var EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 module.exports = function(defaults) {
   var app = new EmberAddon(defaults, {
     // Add options here
+
+    snippetSearchPaths: ['tests/dummy/app'],
+
+    svgstore: {
+      excludeSourceFiles: true, // exclude all processed source files
+      files: {
+        sourceDirs: [ 'public/icons' ],
+        outputFile: '/assets/icons.svg',
+        excludeSourceFiles: true // exclude source files only for this master SVG
+      }
+    }
   });
 
   /*
