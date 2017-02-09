@@ -63,8 +63,7 @@
 /*
   Check Icon
 */
-
 .c-tf-checkbox__check-icon {
-  display: block;
+  margin: auto; /* To center the check icon in the box */
   margin-top: 0.1875rem; /* 3px - To vertically align the check in the box */
 }
