@@ -15,6 +15,11 @@ module.exports = function(defaults) {
         outputFile: '/assets/icons.svg',
         excludeSourceFiles: true // exclude source files only for this master SVG
       }
+    },
+
+    // remove fingerprinting so svg icon shows in github-pages. 
+    fingerprint: {
+      exclude: ['/assets/icons.svg']
     }
   });
 

@@ -4,7 +4,7 @@ This Ember addon provides the checkbox components of the Ticketfly UI library.
 
 ## Usage
 
-See the demo [here](#). - todo
+See the demo [here](https://ticketfly-ui.github.io/ember-ticketfly-checkbox).
 
 ## Installation
 
