@@ -2,6 +2,7 @@
   @module ember-ticketfly-checkbox
  */
 import layout from '../templates/components/tf-checkbox';
+import styles from '../styles/components/tf-checkbox';
 import get from 'ember-metal/get';
 import set from 'ember-metal/set';
 import Component from 'ember-component';
@@ -16,25 +17,26 @@ const DEFAULT_BOX_SHAPE = 'square';
  */
 export default Component.extend({
   layout,
+  styles,
 
   didReceiveAttrs() {
     this._super(...arguments);
 
     // if no checkboxId is supplied, generate one so that the label and checkbox can have one to share
     // for accessibility by default
-    if (!get(this, 'checkboxId')) { 
-      set(this, 'checkboxId', `id-${guidFor(this)}`); 
+    if (!get(this, 'checkboxId')) {
+      set(this, 'checkboxId', `id-${guidFor(this)}`);
     }
   },
 
-  classNames: ['c-tf-checkbox'],
+  localClassNames: ['tf-checkbox'],
 
   shouldShowCheck: computed.or('checked','disabled'),
 
   boxShape: computed('shapeStyle', {
     get() {
       const shapeStyle = get(this, 'shapeStyle') || DEFAULT_BOX_SHAPE;
-      return `c-tf-checkbox__box-shape--${shapeStyle}`;
+      return `box-shape--${shapeStyle}`;
     }
   }),
 
