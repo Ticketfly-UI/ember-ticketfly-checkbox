@@ -1,8 +1,8 @@
-/* 
-  Variables 
+/*
+  Variables
 */
 
-.c-tf-checkbox {
+.tf-checkbox {
   --tf-checkbox-min-width: 1.0625rem; /* 17px */
   --tf-checkbox-min-height: 1.0625rem; /* 17px */
   --tf-checkbox-border: 1px solid var(--x-color-gray-2);
@@ -11,11 +11,15 @@
   --tf-checkbox-border-radius-round: 10px;
 }
 
+.hidden-checkbox {
+  composes: u-hidden-visually u-m-0 from global;
+}
+
 /*
   Outline style (for accessibility when tabbing)
 */
 
-.c-tf-checkbox__input-checkbox:focus + .c-tf-checkbox__label {
+.hidden-checkbox:focus + .label {
   outline-style: auto;
 }
 
@@ -23,7 +27,8 @@
   Base Box Shape
 */
 
-.c-tf-checkbox__box-shape {
+.box-shape {
+  composes: u-inline-block u-valign-middle from global;
   border: var(--tf-checkbox-border);
   min-width: var(--tf-checkbox-min-width);
   min-height: var(--tf-checkbox-min-height);
@@ -33,11 +38,11 @@
   Box Shape
 */
 
-.c-tf-checkbox__box-shape--square {
+.box-shape--square {
   border-radius: var(--tf-checkbox-border-radius-square);
 }
 
-.c-tf-checkbox__box-shape--round {
+.box-shape--round {
   border-radius: var(--tf-checkbox-border-radius-round);
 }
 
@@ -45,7 +50,7 @@
   Checked Box
 */
 
-.c-tf-checkbox__box-shape--checked {
+.box-shape--checked {
   background-color: var(--x-color-green-5);
   border-color: var(--x-color-green-5);
   fill: var(--x-color-white);
@@ -55,7 +60,7 @@
   Disabled
 */
 
-.c-tf-checkbox__box-shape--disabled {
+.box-shape--disabled {
   background-color: var(--x-color-gray-1);
   fill: var(--x-color-gray-2);
 }
@@ -63,7 +68,12 @@
 /*
   Check Icon
 */
-.c-tf-checkbox__check-icon {
+.check-icon {
+  composes: u-block from global;
   margin: auto; /* To center the check icon in the box */
   margin-top: 0.1875rem; /* 3px - To vertically align the check in the box */
+}
+
+.checkbox-content {
+  composes: u-inline-block u-valign-middle from global;
 }

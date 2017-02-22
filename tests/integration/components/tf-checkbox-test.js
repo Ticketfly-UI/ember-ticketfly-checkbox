@@ -1,6 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import { initialize, $hook } from 'ember-hook';
+import 'ember-css-modules/extensions';
 
 moduleForComponent('tf-checkbox', 'Integration | Component | tf checkbox', {
   beforeEach() {
@@ -48,7 +49,7 @@ test('checkboxId is not passed in', function(assert) {
 
   assert.ok(inputId, 'input has generated "id"');
   assert.ok(labelFor, 'label has "for" attribute set');
-  assert.equal(inputId, labelFor, 'input "id" matches label "for"');  
+  assert.equal(inputId, labelFor, 'input "id" matches label "for"');
 });
 
 test('renders in block form', function(assert) {
@@ -95,20 +96,20 @@ test('checked property changes on click', function(assert) {
   assert.ok(!checkboxInput.is(':checked'), "input isn't checked");
 
   $hook('tf-checkbox__label').click();
-  
+
   assert.ok(checkboxInput.is(':checked'), "input is checked");
 });
 
 test('checkbox receives a shapeStyle', function(assert) {
   this.render(hbs`{{tf-checkbox shapeStyle="round"}}`);
 
-  const boxShape = $hook('tf-checkbox__box-shape');
-  assert.ok(boxShape.hasClass('c-tf-checkbox__box-shape--round'), "box shape is round");
+  const classNames = $hook('tf-checkbox__box-shape').attr('class');
+  assert.ok(classNames.indexOf('box-shape--round') > -1, 'box shape is round');
 });
 
 test('checkbox defaults to square shape', function(assert) {
   this.render(hbs`{{tf-checkbox}}`);
 
-  const boxShape = $hook('tf-checkbox__box-shape');
-  assert.ok(boxShape.hasClass('c-tf-checkbox__box-shape--square'), "box shape is square");
+  const classNames = $hook('tf-checkbox__box-shape').attr('class');
+  assert.ok(classNames.indexOf('box-shape--square') > -1, 'box shape is square');
 });
